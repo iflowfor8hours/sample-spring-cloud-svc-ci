@@ -1,0 +1,55 @@
+ <div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Send a Message</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row" ng-if="errorMessage">
+                    <div class="col-xs-12">
+                        <p class="bg-danger text-center">
+                            <span ng-bind="errorMessage.exception"></span>
+                            <span ng-bind="errorMessage.message"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputmessage" class="col-xs-2">Send Message</label>
+                        <div class="col-xs-6">
+                            <input type="text" class="form-control" id="inputmessage" ng-model="message.payload" placeholder="Enter Message to Send">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="delay_by" class="col-xs-2">Delay By(in ms):</label>
+
+                        <div class="col-xs-6">
+                            <select class="form-control" id="delay_by" ng-model="message.delay_by">
+                                <option ng-selected="selected">100</option>
+                                <option>200</option>
+                                <option>500</option>
+                                <option>1000</option>
+                                <option>2000</option>
+                                <option>3000</option>
+                                <option>5000</option>
+                                <option>10000</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div ng-show="loader.loading">Loading...</div>
+                    <div class="form-group" ng-if="responseMessage != ''">
+                        <label class="col-xs-10">Request Sent: {{responseMessage.received}}, Response From Server: {{responseMessage.payload}}</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-default" ng-click="getMessageResponse(message)">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
