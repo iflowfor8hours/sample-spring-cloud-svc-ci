@@ -7,14 +7,14 @@ def flow
 
 stage 'compile'
 node {
-	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'jenkins'])
+	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'master'])
 	flow = load 'ci/pipeline.groovy'
 	flow.build()
 }
 
 stage 'test'
 node {
-	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'jenkins'])
+	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'master'])
 	flow = load 'ci/pipeline.groovy'
 	flow.clean_test()
 }
@@ -26,7 +26,7 @@ node {
 
 stage 'deploy-to-development'
 node {
-	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'jenkins'])
+	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'master'])
 	flow = load 'ci/pipeline.groovy'
 	flow.push('api.run.pivotal.io', "${cfUser}", "${cfPassword}", "${cfOrg}", 'development', 'cfapps.io', 'sample-spring-cloud-svc-ci-dev')
 }
@@ -35,14 +35,14 @@ stage 'run-tests-on-dev'
 parallel(
 	smokeTests: {
 		node {
-			git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'jenkins'])
+			git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'master'])
 			flow = load 'ci/pipeline.groovy'
 			flow.runSmokeTests('api.run.pivotal.io', "${cfUser}", "${cfPassword}", "${cfOrg}", 'development', 'cfapps.io', 'sample-spring-cloud-svc-ci-dev')
 		}
 	},
 	acceptanceTests: {
 		node {
-			git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'jenkins'])
+			git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'master'])
 			flow = load 'ci/pipeline.groovy'
 			flow.runAcceptanceTests('api.run.pivotal.io', "${cfUser}", "${cfPassword}", "${cfOrg}", 'development', 'cfapps.io', 'sample-spring-cloud-svc-ci-dev')
 		}
@@ -51,7 +51,7 @@ parallel(
 
 stage name: 'deploy-to-test', concurrency: 1
 node {
-	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'jenkins'])
+	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'master'])
 	flow = load 'ci/pipeline.groovy'
 	flow.pushIf('api.run.pivotal.io', "${cfUser}", "${cfPassword}", "${cfOrg}", 'test', 'cfapps.io', 'sample-spring-cloud-svc-ci-test')
 }
@@ -60,14 +60,14 @@ stage 'run-tests-on-test'
 parallel(
 	smokeTests: {
 		node {
-			git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'jenkins'])
+			git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'master'])
 			flow = load 'ci/pipeline.groovy'
 			flow.runSmokeTests('api.run.pivotal.io', "${cfUser}", "${cfPassword}", "${cfOrg}", 'test', 'cfapps.io', 'sample-spring-cloud-svc-ci-test')
 		}
 	},
 	acceptanceTests: {
 		node {
-			git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'jenkins'])
+			git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'master'])
 			flow = load 'ci/pipeline.groovy'
 			flow.runAcceptanceTests('api.run.pivotal.io', "${cfUser}", "${cfPassword}", "${cfOrg}", 'test', 'cfapps.io', 'sample-spring-cloud-svc-ci-test')
 		}
@@ -83,7 +83,7 @@ try {
 
 stage name: 'deploy-to-prod', concurrency: 1
 node {
-	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'jenkins'])
+	git([url: "https://github.com/${user}/sample-spring-cloud-svc-ci.git", branch: 'master'])
 	flow = load 'ci/pipeline.groovy'
 	flow.pushIf('api.run.pivotal.io', "${cfUser}", "${cfPassword}", "${cfOrg}", 'production', 'cfapps.io', 'sample-spring-cloud-svc-ci-prod')
 }
