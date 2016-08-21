@@ -1,4 +1,4 @@
-## Pipelines
+# Spring demo application
 
 ## Running Locally
 
