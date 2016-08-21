@@ -9,13 +9,11 @@ buildscript {
 		maven { url "https://repo.spring.io/snapshot" }
 		maven { url "https://repo.spring.io/milestone" }
 		maven { url "https://plugins.gradle.org/m2/" }
-		maven { url "http://192.168.99.100:8081/content/groups/public" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath("com.github.pivotalservices:ya-cf-app-gradle-plugin:${cfAppVersion}")
 		classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.0.1"
-		// classpath("gradle.plugin.net.vivin:gradle-semantic-build-versioning:1.1.3")
 	}
 }
 
@@ -25,7 +23,6 @@ apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 apply plugin: 'cf-app'
 apply plugin: 'org.sonarqube'
-// apply plugin: 'net.vivin.gradle-semantic-build-versioning'
 
 jar { baseName = 'sample-spring-cloud-svc-ci' }
 sourceCompatibility = 1.8
@@ -44,7 +41,6 @@ apply from: 'gradle/coverage.gradle'
 apply from: 'gradle/sonar.gradle'
 
 dependencies {
-	//	compile('io.pivotal.spring.cloud:spring-cloud-services-starter-circuit-breaker')
 	compile('io.pivotal.spring.cloud:spring-cloud-services-starter-config-client')
 	compile('io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry')
 	compile('org.springframework.boot:spring-boot-starter-web')
@@ -80,17 +76,6 @@ uploadArchives {
 		}
 	}
 }
-
-// project.version.with {
-// 	startingVersion = "1.0.0"
-// 	autobump {
-// 		majorPattern =~ /^\[bump-major\]$/
-// 		minorPattern =~ /^\[bump-minor\]$/
-// 		patchPattern =~ /^\[bump-patch\]$/
-// 		preReleasePattern =~ /^\[bump-pre-release\]$/
-// 		promoteToReleasePattern =~ /^\[promote-to-release\]$/
-// 	}
-// }
 
 cfConfig {
 	name = "sample-spring-cloud-svc-ci"
