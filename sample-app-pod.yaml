@@ -1,0 +1,26 @@
+apiVersion: v1
+# kind: Service
+kind: Pod
+metadata:
+  name: sample-application
+  labels:
+    app: sample-application
+spec:
+  containers:
+  - image: iflowfor8hours/java-sample
+    name: jar
+    volumeMounts:
+    - mountPath: /app
+      name: app-volume
+  - image: openjdk:latest
+    name: java-runtime
+    command: ["java","-jar","/opt/app/app.jar"]
+    volumeMounts:
+    - mountPath: /opt/app
+      name: app-volume
+    ports:
+    - containerPort: 8080
+      hostPort: 8000
+  volumes:
+  - name: app-volume
+    emptyDir: {}
