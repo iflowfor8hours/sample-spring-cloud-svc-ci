@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sample-application
+  labels:
+    app: sample-application
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-application
+  template:
+    metadata:
+      labels:
+        app: sample-application
+    spec:
+      containers:
+      - name: jar
+        image: iflowfor8hours/java-sample
+        volumeMounts:
+        - mountPath: /app
+          name: app-volume
+      - name: java-runtime
+        image: openjdk:latest
+        command: ["java","-jar","/opt/app/app.jar"]
+        volumeMounts:
+        - mountPath: /opt/app
+          name: app-volume
+        ports:
+        - containerPort: 8080
+          hostPort: 8000
+      volumes:
+      - name: app-volume
+        emptyDir: {}
