@@ -19,4 +19,11 @@
 docker run -v $HOME/src/sample-spring-cloud-svc-ci:/opt/repo  -p 8080:8080 openjdk:latest java -jar /opt/repo/target/sample-spring-cloud-svc-ci-1.0.0-SNAPSHOT.jar
 ```
 
+To launch in kubernetes:
+
 ```
+kubectl create -f sample-app-service.yaml
+kubectl create -f sample-app-deployment.yaml
+```
+
+To see your application running, `curl` the external ip of your kubernetes node with the port number listed in the output of the service.
