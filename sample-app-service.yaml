@@ -6,10 +6,9 @@ metadata:
     app: sample-application
     tier: frontend
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - port: 8080
-    targetPort: 8080
   selector:
     app: sample-application
     tier: frontend

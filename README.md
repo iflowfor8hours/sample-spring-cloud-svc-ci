@@ -18,3 +18,5 @@
 ./mvnw package -DskipTests
 docker run -v $HOME/src/sample-spring-cloud-svc-ci:/opt/repo  -p 8080:8080 openjdk:latest java -jar /opt/repo/target/sample-spring-cloud-svc-ci-1.0.0-SNAPSHOT.jar
 ```
+
+```

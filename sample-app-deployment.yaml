@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: sample-application
+  name: frontend
   labels:
     app: sample-application
 spec:
@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: sample-application
+        tier: frontend
     spec:
       containers:
       - name: jar
@@ -28,7 +29,6 @@ spec:
           name: app-volume
         ports:
         - containerPort: 8080
-          hostPort: 8000
       volumes:
       - name: app-volume
         emptyDir: {}
